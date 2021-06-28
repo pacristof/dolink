@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { StatusBar, View, TextInput, TouchableOpacity, StyleSheet,Text } from 'react-native';
-import {url} from '../../Utils/constants';
+import {url} from '../Utils/constants';
 
 
 function Cadastro ({navigation}){

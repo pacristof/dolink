@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'reac
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Link } from '@react-navigation/native';
-import {url} from '../../Utils/constants';
+import {url} from '../Utils/constants';
 
 
 
