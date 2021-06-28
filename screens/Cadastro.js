@@ -9,6 +9,37 @@ function Cadastro ({navigation}){
     const [email,setEmail] = useState('');
     const [senha,setSenha] = useState('');
     const [telefone,setTelefone] = useState('');
+
+    const Cadastrar = () => {
+
+      const corpo = {
+        email : email,
+        senha : senha
+      }
+
+      fetch(`${url}professional/signup`, {
+  
+        method: 'POST',
+        headers :{
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(corpo)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if(data.status != 404){
+                alert('Seja bem-vindo!');
+                console.log(data.token);
+                salvar(data.token);
+                navigation.push('Cadastro');
+            }else{
+                alert('Email ou senha inválidos');
+            }
+  
+  
+        })
+    }
     
 
 
@@ -30,7 +61,7 @@ function Cadastro ({navigation}){
             <Text style={styles.btnText}>Sign Up</Text>
         </TouchableOpacity>
         
-        <Text style={styles.registerText}>Já possui conta? <Text style={styles.registerColor}>Logar.</Text>
+        <Text style={styles.registerText}>Já possui conta? <Text style={styles.registerColor} onPress={() => navigation.navigate('Login')}>Logar.</Text>
        
         </Text>
 

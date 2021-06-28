@@ -29,7 +29,7 @@ function Login ({navigation}){
 
         
 
-        fetch(`${url}/v1/account/signin`, {
+        fetch(`${url}account/signin`, {
 
             method: 'POST',
             headers :{
@@ -83,7 +83,7 @@ function Login ({navigation}){
             </TouchableOpacity>
 
            <Text style={styles.buttonText}>Forget Password?</Text>
-            <Text style={styles.registerText}>Ainda não possui conta? <Text style={styles.registerColor}>Registre-se.</Text>
+            <Text style={styles.registerText}>Ainda não possui conta? <Text style={styles.registerColor} onPress={() => navigation.navigate('Cadastro')}>Registre-se.</Text>
             </Text>
         </View>
        
