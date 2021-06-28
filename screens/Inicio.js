@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         borderBottomColor : '#fff',
         marginTop : 20
     },
-    image:{
+    image : {
         width : 250,
         height : 100,
         resizeMode : 'center'

@@ -5,15 +5,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Link } from '@react-navigation/native';
 import {url} from '../Utils/constants';
 
-
-
 function Login ({navigation}){
+
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const salvar = async (value) => {
+    const salvar = async (token) => {
         try {
-            await AsyncStorage.setItem('@jwt', value)
+            await AsyncStorage.setItem('@jwt', token)
         } catch (e) {
             
         }
@@ -44,7 +43,7 @@ function Login ({navigation}){
                 alert('Seja bem-vinde!');
                 console.log(data.token);
                 salvar(data.token);
-                navigation.push('Cadastro');
+                navigation.push('PreMatch');
             }else{
                 alert('Email ou senha iválidos');
             }
@@ -55,24 +54,27 @@ function Login ({navigation}){
     
     return(
         <View style={styles.container}>
-        <h2 style={{color : 'white', fontFamily : 'sans-serif', position:'absolute',right:'75%',top:'10%'}}>Sign In</h2>   
-            
-            <TextInput
-                style={styles.input}
-                onChangeText={text => setEmail(text)}
-                value={email}
-                placeholder="Informe seu email..."
-                keyboardType="email"
-            />
+            <View style={styles.dadosInput}>
+                <h2 style={{color : 'white', fontFamily : 'sans-serif', fontSize : '60px', textAlign : 'center'}}>Sign In</h2>   
 
-            <TextInput
-                style={styles.input}
-                onChangeText={text => setSenha(text)}
-                value={senha}
-                placeholder="Informe sua senha..."
-                keyboardType="password"
-                secureTextEntry={true}
-            />
+                <TextInput
+                    style={styles.input}
+                    onChangeText={text => setEmail(text)}
+                    value={email}
+                    placeholder="Informe seu email..."
+                    keyboardType="email"
+                />
+
+                <TextInput
+                    style={styles.input}
+                    onChangeText={text => setSenha(text)}
+                    value={senha}
+                    placeholder="Informe sua senha..."
+                    keyboardType="password"
+                    secureTextEntry={true}
+                />
+            </View>
+            
 
             <TouchableOpacity
                 style={styles.button}
@@ -82,7 +84,6 @@ function Login ({navigation}){
                 <Icon name='arrow-right' size={18} float='right' color='white'/>
             </TouchableOpacity>
 
-           <Text style={styles.buttonText}>Forget Password?</Text>
             <Text style={styles.registerText}>Ainda não possui conta? <Text style={styles.registerColor} onPress={() => navigation.navigate('Cadastro')}>Registre-se.</Text>
             </Text>
         </View>
@@ -100,19 +101,27 @@ const styles = StyleSheet.create({
   
     
     input : {
-      width : '70%',
+      width : '100%',
       height : 50, 
       marginTop : 20,
-      padding : 5,
+      padding : 20,
       borderRadius : 15,
       backgroundColor : '#dcdcdc',
       
     },
+
+    dadosInput : {
+        width : '70%',
+        flexDirection : 'column',
+        alignContent : 'center',
+        marginBottom : '15vh'
+
+    },
+
     buttonText:{
      color:"#FF9313",
-     top:'61%',
-     paddingLeft:'38%',
-     position:'absolute',
+     top:'30%',
+     paddingLeft:'50%',
      fontWeight : 'bold', 
      
 
@@ -125,8 +134,10 @@ const styles = StyleSheet.create({
       padding : 5,
       borderRadius : 5,
       position:'absolute',
-       top:'78%',
+      top:'60%',
+      justifyContent: 'center',
       alignItems: 'center',
+      flexDirection: 'row',
       textAlign: 'center'
      
     },
@@ -137,23 +148,24 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       fontSize: 20,
       flexDirection:'row',
+      marginRight : 15
       
 
     },
     registerText:{
-      color:"0000",
-    top:'90%',
-    position:'absolute',
-    fontWeight : 'bold', 
-    
-  },
-  registerColor:{
-    color:"#FF9313",
-    fontWeight : 'bold', 
-  },
+      color:"#fff",
+      top:'75%',
+      position:'absolute',
+      fontWeight : 'bold', 
+        
+    },
+    registerColor:{
+      color:"#FF9313",
+      fontWeight : 'bold', 
+    },
 
     
-  });
+});
 
 
 export default Login;
