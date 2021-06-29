@@ -59,7 +59,7 @@ function Login({ navigation }) {
             <header className="cabecalho">
                 <div className="Voltar">
                     <Link to="/Inicio"> 
-                    <img src="https://image.flaticon.com/icons/png/512/1522/1522094.png"></img>
+                    <img src="https://www.disneyria.com.br/wp-content/uploads/2020/08/bambi-personagem-glossa%CC%81rio-disney-letra-b-min-2048x1731.png"></img>
                     </Link>
                 </div>
             </header>
@@ -67,9 +67,8 @@ function Login({ navigation }) {
             <div className="textos">
                 <h2 style={{ color: 'white', fontFamily: 'sans-serif', fontSize: '28px' }}>Sign In</h2>
                 <hr className="linha2"></hr>
-                <h2  style={{ color: 'white', fontFamily: 'sans', fontSize: '13px' }}>slightly believable. If you are going to use a passage of Lorem Ipsum,<br/> you need to be</h2>
+                <h2  style={{ color: 'white', fontFamily: 'sans', fontSize: '15px' }}>Bacon ipsum dolor amet kielbasa picanha jerky,<br/> flank swine frankfurter </h2>
             </div>
-            <hr className="linha2"></hr>
             <hr className="linha2"></hr>
             <div className="Controle">
                 <div className="Campos">

@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from './screens/Flogin/Login';
 import Inicio from './screens/Inicio';
-import Cadastro from './screens/Cadastro';
+import Cadastro from './screens//Fcadastro/Cadastro';
 import UpdateProfissional from './screens/UpdateProfissional';
 import PreMatch from './screens/PreMatch';
 import MatchConfirmado from './screens/MatchConfirmado';
