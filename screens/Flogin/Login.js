@@ -43,9 +43,9 @@ function Login({ navigation }) {
                 console.log(data);
                 if (data.status != 404) {
                     alert('Seja bem-vindo(a)!');
-                    console.log(data.token);
-                    salvar(data.token);
-                    navigation.push('PreMatch');
+                    console.log(data.data.token);
+                    salvar(data.data.token);
+                    navigation.push('TelasLogado');
                 } else {
                     alert('Email ou senha iválidos');
                 }
@@ -59,15 +59,15 @@ function Login({ navigation }) {
             <header className="cabecalho">
                 <div className="Voltar">
                     <Link to="/Inicio"> 
-                    <img src="https://www.disneyria.com.br/wp-content/uploads/2020/08/bambi-personagem-glossa%CC%81rio-disney-letra-b-min-2048x1731.png"></img>
+                    <img src="https://media.discordapp.net/attachments/840004581992038400/859533942498656327/unknown.png" ></img>
                     </Link>
                 </div>
             </header>
 
             <div className="textos">
-                <h2 style={{ color: 'white', fontFamily: 'sans-serif', fontSize: '28px' }}>Sign In</h2>
+                <h2 style={{ color: 'white', fontFamily: 'sans-serif', fontSize: '28px', marginLeft: 15 }}>Sign In</h2>
                 <hr className="linha2"></hr>
-                <h2  style={{ color: 'white', fontFamily: 'sans', fontSize: '15px' }}>Bacon ipsum dolor amet kielbasa picanha jerky,<br/> flank swine frankfurter </h2>
+                <h2  style={{ color: 'white', fontFamily: 'sans-serif', fontSize: '15px', marginLeft: 15 }}>Faça seu login e visualize,<br/> seus matchs aqui! </h2>
             </div>
             <hr className="linha2"></hr>
             <div className="Controle">
@@ -89,8 +89,6 @@ function Login({ navigation }) {
                         secureTextEntry={true}
                     />
                     <hr className="linha"></hr>
-                    <div className="Esqueceu"> <Text style={styles.registerText}> Ainda não possui conta?<Text style={styles.registerColor} onPress={() => navigation.navigate('EsqueciSenha')}>Forgot password?</Text>
-                    </Text></div>
                     <hr className="linha"></hr>
                     <TouchableOpacity
                         style={styles.button}
@@ -117,7 +115,15 @@ const styles = StyleSheet.create({
         marginTop: 20,
         padding: 20,
         borderRadius: 15,
-        backgroundColor: '#dcdcdc',
+        backgroundColor: '#fff',
+        shadowColor: "#000",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.36,
+        shadowRadius: 6.68,
     },
 
     // dadosInput: {
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
 
     button: {
         backgroundColor: '#00C74F',
-        width: '70%',
+        width: '80%',
         height: 50,
         padding: 5,
         borderRadius: 5,
@@ -153,8 +159,8 @@ const styles = StyleSheet.create({
         marginRight: 15
     },
     registerText: {
-        color: "#fff",
-        fontWeight: 'bold',
+        color: "#000",
+        fontWeight: '500',
     },
     registerColor: {
         color: "#FF9313",
