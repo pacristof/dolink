@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from './screens/Login';
+import Login from './screens/Flogin/Login';
 import Inicio from './screens/Inicio';
 import Cadastro from './screens/Cadastro';
 import UpdateProfissional from './screens/UpdateProfissional';
