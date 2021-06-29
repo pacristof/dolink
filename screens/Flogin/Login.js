@@ -42,7 +42,7 @@ function Login({ navigation }) {
             .then(data => {
                 console.log(data);
                 if (data.status != 404) {
-                    alert('Seja bem-vinde!');
+                    alert('Seja bem-vindo(a)!');
                     console.log(data.token);
                     salvar(data.token);
                     navigation.push('PreMatch');
@@ -120,18 +120,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#dcdcdc',
     },
 
-    dadosInput: {
-        width: '70%',
-        flexDirection: 'column',
-        marginBottom: '15vh'
-    },
+    // dadosInput: {
+    //     width: '70%',
+    //     flexDirection: 'column',
+    //     marginBottom: '15vh'
+    // },
 
-    buttonText: {
-        color: "#FF9313",
-        top: '30%',
-        paddingLeft: '50%',
-        fontWeight: 'bold',
-    },
+    // buttonText: {
+    //     color: "#FF9313",
+    //     top: '30%',
+    //     paddingLeft: '50%',
+    //     fontWeight: 'bold',
+    // },
 
     button: {
         backgroundColor: '#00C74F',

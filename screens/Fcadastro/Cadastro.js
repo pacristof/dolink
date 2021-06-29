@@ -17,13 +17,13 @@ function Cadastro({ navigation }) {
     try {
       await AsyncStorage.setItem('@jwt', token)
     } catch (e) {
-      // saving error
+      console.log(e)
     }
   }
 
   const Cadastrar = () => {
 
-    fetch(`${url}professional/signup`, {
+    fetch(`https://192.168.0.19:5001/v1/professional/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
