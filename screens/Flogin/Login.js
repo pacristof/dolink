@@ -69,6 +69,8 @@ function Login({ navigation }) {
                 <hr className="linha2"></hr>
                 <h2  style={{ color: 'white', fontFamily: 'sans', fontSize: '13px' }}>slightly believable. If you are going to use a passage of Lorem Ipsum,<br/> you need to be</h2>
             </div>
+            <hr className="linha2"></hr>
+            <hr className="linha2"></hr>
             <div className="Controle">
                 <div className="Campos">
                     <TextInput
