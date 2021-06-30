@@ -69,7 +69,7 @@ function PreMatch({navigation}) {
         <View style={styles.container}>
 
             <View style={styles.header}>
-                    <img style={{padding: '20px'}} src="https://media.discordapp.net/attachments/741855103236964404/859510228160086016/unknown.png" width="120px" height="25px" />
+                    <img style={{padding: '20px', marginRight: '10px'}} src="https://media.discordapp.net/attachments/741855103236964404/859510228160086016/unknown.png" width="120px" height="25px" />
             </View>
 
             
@@ -147,8 +147,8 @@ const styles = StyleSheet.create({
     },  
     seusMatchs: {
         fontSize: 30,
-        marginTop: 40,
-        marginLeft: 125
+        textAlign: 'center',
+        marginTop: 30
     },
     listaTurmas : {
         marginTop : 50,

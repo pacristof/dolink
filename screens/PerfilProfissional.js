@@ -24,8 +24,8 @@ function PerfilProfissional({navigation}) {
                 'Authorization' : `Bearer ${await AsyncStorage.getItem('@jwt')}`
             }
         })
-        .then(resultado => {
-            console.log(resultado);
+        .then(data => {
+            console.log(data);
         })
         .catch(erro => {
             console.error(`erro ${erro}`);
