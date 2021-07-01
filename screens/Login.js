@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import {  url  } from '../Utils/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import './index.css'
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { Link } from '@react-navigation/native';
-import { url } from '../../Utils/constants';
-import { Button } from 'react-native-elements/dist/buttons/Button';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { StyleSheet, Text, View, FlatList, TextInput, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native';
 
-function Login({ navigation }) {
+function Login ({navigation}) {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -19,7 +17,6 @@ function Login({ navigation }) {
 
         }
     }
-
 
     const Logar = () => {
 
@@ -42,54 +39,47 @@ function Login({ navigation }) {
             .then(data => {
                 console.log(data);
                 if (data.status != 404) {
-                    alert('Seja bem-vindo(a)!');
                     console.log(data.data.token);
                     salvar(data.data.token);
                     navigation.push('TelasLogado');
                 } else {
                     alert('Email ou senha iválidos');
                 }
-
-
             })
     }
 
-    return (
-        <div className="main">
-            <header className="cabecalho">
-                <div className="Voltar">
-                    <Link to="/Inicio"> 
-                    <img src="https://media.discordapp.net/attachments/840004581992038400/859533942498656327/unknown.png" ></img>
-                    </Link>
-                </div>
-            </header>
+    return(
+        <View style={styles.container}>
 
-            <div className="textos">
-                <h2 style={{ color: 'white', fontFamily: 'sans-serif', fontSize: '28px', marginLeft: 15 }}>Sign In</h2>
-                <hr className="linha2"></hr>
-                <h2  style={{ color: 'white', fontFamily: 'sans-serif', fontSize: '15px', marginLeft: 15 }}>Faça seu login e visualize,<br/> seus matchs aqui! </h2>
-            </div>
-            <hr className="linha2"></hr>
-            <div className="Controle">
-                <div className="Campos">
+            <Link style={styles.linkHome} to="/Inicio"> 
+                <Icon 
+                    name='arrow-left' 
+                    size={35} 
+                    float='left' 
+                    color='white'
+                />
+            </Link>
+            <Text style={{fontSize: 30, fontWeight: '700', color: 'white', marginTop: 30, marginLeft: 30}}>Sign In</Text>  
+            <Text style={{color: 'white', marginTop: 30, marginLeft: 30}} >Faça seu login e consulte todos os, seus matchs aqui!</Text>
+
+            <View style={styles.blockSignin}>
+
+                <View style={styles.formSignin}>
                     <TextInput
                         style={styles.input}
                         onChangeText={text => setEmail(text)}
                         value={email}
                         placeholder="Informe seu email..."
-                        keyboardType="email"
+                        keyboardType="email-address"
                     />
-                    <hr className="linha"></hr>
-                    <TextInput
+                    <TextInput 
                         style={styles.input}
                         onChangeText={text => setSenha(text)}
                         value={senha}
                         placeholder="Informe sua senha..."
-                        keyboardType="password"
                         secureTextEntry={true}
                     />
-                    <hr className="linha"></hr>
-                    <hr className="linha"></hr>
+
                     <TouchableOpacity
                         style={styles.button}
                         onPress={Logar}
@@ -97,50 +87,63 @@ function Login({ navigation }) {
                         <Text style={styles.textButton}>Sign In</Text>
                         <Icon name='arrow-right' size={18} float='right' color='white' />
                     </TouchableOpacity>
-                    <hr className="linha"></hr>
+                </View>
+                
 
-                    <Text style={styles.registerText}>Ainda não possui conta? <Text style={styles.registerColor} onPress={() => navigation.navigate('Cadastro')}>Registre-se.</Text>
-                    </Text>
-                </div>
-            </div>
-        </div>
+            </View>
+
+        </View>
     )
+    
 }
 
 const styles = StyleSheet.create({
 
+    container: {
+        backgroundColor: '#1A82D6',
+        height: '100%'
+    },
+    linkHome: {
+        marginTop: 60, 
+        marginLeft: 25
+    },  
+    blockSignin: {
+        backgroundColor: 'white',
+        height: 700,
+        marginTop: 40,
+        flex: 1,
+        justifyContent: 'center',
+        borderTopLeftRadius: 40, 
+        borderTopRightRadius: 40, 
+    },
+    formSignin: {
+        marginTop: 10
+
+    },  
     input: {
-        width: '100%',
+        width: '90%',
         height: 60,
         padding: 20,
-        borderRadius: 15,
-        backgroundColor: '#fff',
+        borderRadius: 31,
+        backgroundColor: '#DCDCDC',
+        color: '#6D6B6B',
         shadowColor: "#000",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
             height: 5,
         },
+        elevation: 5,
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
+        marginTop: 20,
+        marginLeft: 25
     },
-
-    // dadosInput: {
-    //     width: '70%',
-    //     flexDirection: 'column',
-    //     marginBottom: '15vh'
-    // },
-
-    // buttonText: {
-    //     color: "#FF9313",
-    //     top: '30%',
-    //     paddingLeft: '50%',
-    //     fontWeight: 'bold',
-    // },
-
     button: {
         backgroundColor: '#00C74F',
-        width: '80%',
+        width: '90%',
+        marginLeft: 25,
+        marginTop: 30,
         height: 50,
         padding: 5,
         borderRadius: 5,
@@ -160,13 +163,14 @@ const styles = StyleSheet.create({
     registerText: {
         color: "#000",
         fontWeight: '500',
+        textAlign: 'center',
+        marginTop: 50,
+        height: 80
     },
     registerColor: {
         color: "#FF9313",
-        justifyContent: 'flex-end',
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     }
 });
-
 
 export default Login;

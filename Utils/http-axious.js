@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode';
 
 export default axios.create({
 
-    baseURL : 'https://localhost:44338/v1/',
+    baseURL : 'https://dolink.azurewebsites.net/v1/',
     headers : {
 
         'content-type' : 'application/json'

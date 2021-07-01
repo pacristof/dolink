@@ -2,14 +2,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwtDecode from 'jwt-decode';
 import React, {useState, useEffect} from 'react';
 import {  url  } from '../Utils/constants';
-import { StyleSheet, Text, View, FlatList, TextInput, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native';
+import {Picker} from '@react-native-community/picker';
 import http from '../Utils/http-axious';
+import Logo from '../assets/Logo.png';
 
 function PerfilProfissional({navigation}) {
 
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [telefone, setTelefone] = useState('');
+    const [sobreMim, setSobreMim] = useState('');
 
     useEffect(() => {
         ListarProfissional()
@@ -20,11 +23,17 @@ function PerfilProfissional({navigation}) {
         const idProfissional = jwtDecode(await AsyncStorage.getItem('@jwt')).Id;
 
         fetch(`${url}professional/search/id/${idProfissional}`, {
+            method: 'GET',
             headers: {
                 'Authorization' : `Bearer ${await AsyncStorage.getItem('@jwt')}`
             }
         })
+        .then(data => data.json())
         .then(data => {
+            setNome(data.data.nome)
+            setEmail(data.data.email)
+            setTelefone(data.data.telefone)
+            setSobreMim(data.data.sobreMim)
             console.log(data);
         })
         .catch(erro => {
@@ -32,9 +41,9 @@ function PerfilProfissional({navigation}) {
         })
     }   
 
-    const Logout = () => {
+    const Logout = async () => {
 
-        AsyncStorage.removeItem('@jwt')
+        await AsyncStorage.removeItem('@jwt')
         navigation.navigate('Inicio')
         location.reload();
 
@@ -45,37 +54,52 @@ function PerfilProfissional({navigation}) {
         <View style={styles.container}>
 
             <View style={styles.header}>
-                    <img style={{padding: '20px'}} src="https://media.discordapp.net/attachments/741855103236964404/859510228160086016/unknown.png" width="120px" height="25px" />
+                    <Image 
+                        style={styles.logo}
+                        source={Logo}
+                    />
             </View>
 
-            <View>
-                <Text style={styles.seuPerfil}>Seu Perfil!</Text>
-            </View>
+            <ScrollView>
+                <View>
+                    <Text style={styles.seuPerfil}>Seu Perfil!</Text>
+                </View>
 
-            <TextInput
-                style={styles.input}
-                placeholder="Seu Email:"
-                keyboardType="text"
-            />
+                <TextInput
+                    editable={false} 
+                    selectTextOnFocus={false}
+                    style={styles.input}
+                    placeholder={`Nome: ${nome}`}
+                />
 
-            <TextInput
-                style={styles.input}
-                placeholder="Seu Email"
-                keyboardType="text"
-            />
+                <TextInput
+                    editable={false} 
+                    selectTextOnFocus={false}
+                    style={styles.input}
+                    placeholder={`Email: ${email}`}
+                />
 
-            <TextInput
-                style={styles.input}
-                placeholder="Seu Telefone"
-                keyboardType="text"
-            />
+                <TextInput
+                    editable={false} 
+                    selectTextOnFocus={false}
+                    style={styles.input}
+                    placeholder={`Telefone: ${telefone}`}
+                />
+                
+                <TextInput
+                    editable={false} 
+                    selectTextOnFocus={false}
+                    style={styles.inputSobreMim}
+                    placeholder={`Sobre mim: ${sobreMim.substring(0, 150)}...`}
+                />
 
-            <TouchableOpacity
-                style={styles.button}
-                onPress={Logout}
-            >
-                <Text style={styles.textButton}>Sair</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={Logout}
+                >
+                    <Text style={styles.textButton}>Sair</Text>
+                </TouchableOpacity>
+            </ScrollView>
 
         </View>
     )
@@ -86,14 +110,20 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         height : 20,
-        justifyContent: 'start',
+        justifyContent: 'flex-start',
         backgroundColor: '#fff'
+    },
+    logo : {
+        width : 120,
+        height : 25,
+        resizeMode : 'center',
+        marginBottom: 20
     },
     header: {
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        height: 100,
+        height: 120,
         borderBottomRightRadius: 40,
         shadowColor: "#000",
         shadowColor: "#000",
@@ -103,7 +133,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
-        
         elevation: 11,
         backgroundColor: '#1A82D6'
     },
@@ -123,6 +152,25 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
+        elevation: 3
+    },
+    inputSobreMim: {
+        width: '80%',
+        height: 105,
+        marginTop: 30,
+        marginLeft: 40,
+        padding: 20,
+        borderRadius: 15,
+        backgroundColor: '#fff',
+        shadowColor: "#000",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.36,
+        shadowRadius: 6.68,
+        elevation: 3
     },
     button: {
         backgroundColor: '#F1546E',
@@ -131,15 +179,14 @@ const styles = StyleSheet.create({
         padding: 5,
         borderRadius: 5,
         marginLeft: 40,
-        marginTop: 40,
+        marginTop: 30,
         textAlign: 'center'
     },
     textButton: {
         color: '#ffff',
         fontWeight: 'bold',
-        justifyContent: 'center',
         fontSize: 20,
-        marginRight: 15
+        textAlign: 'center'
     },
     seuPerfil: {
         fontSize: 30,

@@ -3,10 +3,14 @@ import { StyleSheet, Text, View, FlatList, TextInput, SafeAreaView, ScrollView, 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwtDecode from 'jwt-decode';
 import http from '../Utils/http-axious';
+import Logo from '../assets/Logo.png';
 
 function PreMatch({navigation}) {
 
     const [vagas, setVagas] = useState([]);
+
+    const [search, setSearch] = useState('');
+    const [vagafiltro, setVagaFiltro] = useState([]);
 
     const [idVaga, setVaga] = useState('');
     const [idMatch, setMatch] = useState('');
@@ -23,7 +27,7 @@ function PreMatch({navigation}) {
 
         const idProfissional = jwtDecode(await AsyncStorage.getItem('@jwt')).Id;
 
-        http.get('https://localhost:44338/v1/vagancy/prematch/' + idProfissional, {
+        http.get('https://dolink.azurewebsites.net/v1/vagancy/prematch/' + idProfissional, {
             method: 'GET',
 
             body: JSON.stringify({
@@ -38,10 +42,31 @@ function PreMatch({navigation}) {
         })
             .then(resultado => {
                 setVagas(resultado.data.data);
+                setVagaFiltro(resultado.data.data)
                 console.log(vagas)
             })
             .catch((err) => console.log(err))
     }
+
+    const searchFilterFunction = (text) => {
+
+        if (text) {
+          const newData = vagas.filter(function (item) {
+            const itemData = item.titulo
+              ? item.titulo.toLowerCase() 
+              : ''.toLowerCase();
+            const textData = text.toLowerCase();
+            return itemData.indexOf(textData) > -1;
+              
+          });
+          setVagaFiltro(newData);
+          setSearch(text);
+        }
+        else {
+          setVagaFiltro(vagafiltro);
+          setSearch(text);
+        }
+    };
 
     // const ListarPreMatch = async () => {
 
@@ -68,33 +93,38 @@ function PreMatch({navigation}) {
 
         <View style={styles.container}>
 
-            <View style={styles.header}>
-                    <img style={{padding: '20px', marginRight: '10px'}} src="https://media.discordapp.net/attachments/741855103236964404/859510228160086016/unknown.png" width="120px" height="25px" />
+            <View style={styles.header}> 
+                    <Image 
+                        style={styles.logo}
+                        source={Logo}
+                    />
             </View>
 
             
             <View>
-                <Text style={styles.seusMatchs}>Seus Matchs!</Text>
+                <Text style={styles.seusMatchs}>Vagas Compatíveis!</Text>
             </View>
 
             <View>
                 <TextInput
                     style={styles.search}
+                    onChangeText={(text) => searchFilterFunction(text)}
+                    onClear={(text) => searchFilterFunction('')}
                     placeholder="Informe o titulo da vaga..."
-                    keyboardType="text"
+                    value={search}
                 />
             </View>
 
             <ScrollView style={styles.preMatchs}>
                 <FlatList
                     contentContainerStyle={styles.listaTurmas}
-                    data={vagas}
+                    data={vagafiltro}
                     showsHorizontalScrollIndicator={false}
                     renderItem={({ item, index }) => (
                         <View style={styles.itemLista} key={index}>
                             <Text style={styles.titulo}>{item.titulo}</Text>
-                            <Text style={styles.descricao}>{item.descricao}</Text>
-                            <Text style={styles.descricao}>Salário: R${item.faixaSalarial}</Text>
+                            <Text style={styles.descricao}>{item.descricao.substring(0, 40)}...</Text>
+                            <Text style={styles.descricao}>Salário: R${item.faixaSalarial}</Text>   
                         </View>
                     )}
                 />
@@ -111,11 +141,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff'
     },
+    logo : {
+        width : 120,
+        height : 25,
+        resizeMode : 'center',
+        marginBottom: 20
+    },
     header: {
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
-        height: 100,
+        height: 120,
         borderBottomRightRadius: 40,
         shadowColor: "#000",
         shadowColor: "#000",
@@ -125,7 +161,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
-        
         elevation: 11,
         backgroundColor: '#1A82D6'
     },
@@ -142,6 +177,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.36,
         shadowRadius: 6.68,
+        elevation: 5,
         marginTop: 30,
         marginHorizontal : 50
     },  
@@ -151,25 +187,25 @@ const styles = StyleSheet.create({
         marginTop: 30
     },
     listaTurmas : {
-        marginTop : 50,
         marginHorizontal : 50,
-        flex: 1
+        marginBottom: 50
     },
     itemLista : {
         backgroundColor : '#1A82D6',
         borderRadius : 15,
-        textAlign : 'start',
+        textAlign : 'left',
+        marginTop: 40
     },
     titulo : {
         padding : 15,
         fontSize : 22,
-        fontWeight : 700,
+        fontWeight : '700',
         color: 'white'
     },
     descricao : {
         padding : 20,
         fontSize : 18,
-        fontWeight : 400,
+        fontWeight : '400',
         color: 'white'
     }
   });

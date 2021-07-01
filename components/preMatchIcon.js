@@ -1,15 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import preMatch from '../assets/preMatch.png';
 
 export default function PreMatchIcon({ size, color }) {
   return (
     <View style={styles.container} >
-      <img src="https://media.discordapp.net/attachments/840004581992038400/859536397551271966/unknown.png" height={"100%"} width={"100%"} />
+      <Image 
+        style={styles.image}
+        source={preMatch}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  image: {
+    width: 50,
+    height: 50
+  },
   container: {
     width: 70,
     height: 70,

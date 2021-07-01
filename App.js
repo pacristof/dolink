@@ -3,18 +3,13 @@ import React, {useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from './screens/Flogin/Login';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Login from './screens/Login';
 import Inicio from './screens/Inicio';
-import Cadastro from './screens//Fcadastro/Cadastro';
-import UpdateProfissional from './screens/UpdateProfissional';
 import PreMatch from './screens/PreMatch';
-import MatchConfirmado from './screens/MatchConfirmado';
 import PerfilProfissional from './screens/PerfilProfissional';
-import EsqueciSenha from './screens/EsqueciSenha';
-
 import PreMatchIcon from './components/preMatchIcon';
 import PerfilProfissionalIcon from './components/perfilProfissional';
-
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -54,15 +49,28 @@ const tabsScreen = () => (
         borderTopColor: '#139548',
         height: 80,
       },
-      activeTintColor: "#ffff",
-      inactiveTintColor: '#4D504E',
+      activeTintColor: "#FFF",
+      inactiveTintColor: '#000',
       tabStyle: {
-        paddingBottom: 5,
-        paddingTop: 5,
+        paddingTop: 10
       }
     }} initialRouteName='PreMatch'>
-    <Tab.Screen name="PreMatch" component={PreMatchScreen} options={{ tabBarLabel: "", tabBarIcon: ({ focused, size, color }) => (<PreMatchIcon size={size} color={color} focused={focused} />) }} />
-    <Tab.Screen name='Conta' component={PerfilProfissionalScreen} options={{ tabBarLabel: "", tabBarIcon: ({ focused, size, color }) => (<PerfilProfissionalIcon size={size} color={color} focused={focused} />) }} />
+    <Tab.Screen 
+        name="PreMatch" 
+        component={PreMatchScreen} 
+        options={{ 
+          tabBarLabel: "", 
+        tabBarIcon: ({ color }) => 
+        (<Icon name="briefcase" color={color} size={30} />) }} />
+
+    <Tab.Screen 
+        name="Conta" 
+        component={PerfilProfissionalScreen} 
+        options={{ 
+          tabBarLabel: "",
+        tabBarIcon: ({ color }) => 
+        (<Icon name="user-circle" color={color} size={30} />) }} />
+  
   </Tab.Navigator>
 )
 
@@ -70,12 +78,8 @@ function MyStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown:false}}>
       <Stack.Screen name="Inicio" component={Inicio} />
-      {/* <Stack.Screen name="Cadastro" component={Cadastro} />  */}
       <Stack.Screen name="Login" component={loginScreen} />
-      {/* <Stack.Screen name="UpdateProfissional" component={UpdateProfissional} /> */}
-      {/* <Stack.Screen name="EsqueciSenha" component={EsqueciSenha} /> */}
       <Stack.Screen name="TelasLogado" component={tabsScreen} />
-      {/* <Stack.Screen name="MatchConfirmado" component={MatchConfirmado} /> */}
     
     </Stack.Navigator>
   );

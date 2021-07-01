@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, ImageBackground } from
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Logo from '../assets/Logo.png';
 import fundo from '../assets/vector/fundoHome.png'
+import { color } from 'react-native-elements/dist/helpers';
 
 function Inicio({ navigation }) {
     return (
@@ -17,14 +18,7 @@ function Inicio({ navigation }) {
             </ImageBackground>
             <View style={styles.buttonContainer}>
                 <Button
-                    buttonStyle={[styles.buttonSignUp, styles.borderShadow]}
-                    titleStyle={styles.titleSignIn}
-                    title="Sign Up"
-                    onPress={() => navigation.navigate('Cadastro')}
-                    Icon name='arrow-right' size={20} color='white'
-                />
-                <Button
-                    buttonStyle={[styles.buttonSignIn, styles.borderShadow]}
+                    buttonStyle={[styles.buttonSignIn]}
                     titleStyle={styles.titleSignUp}
                     title="Sign In"
                     onPress={() => navigation.navigate('Login')}
@@ -63,7 +57,7 @@ const styles = StyleSheet.create({
     descricao:{
         width : 200,
         color : '#fff',
-        fontSize : '1.5em',
+        fontSize : 25,
         fontWeight:'bold',
         textAlign : 'center',
         marginTop : 30
@@ -73,36 +67,17 @@ const styles = StyleSheet.create({
         alignItems : 'center',
         marginTop : -80
     },
-    buttonSignUp:{
+    buttonSignIn:{
         height:65,
         width: 280,
         borderRadius:10,
         borderWidth:5,
         backgroundColor:'#00C74F',
-        borderColor: "#00C74F",
-    },
-    buttonSignIn:{
-        height:65,
-        width:280,
-        borderRadius:10,
-        borderWidth:5,
-        marginTop : 20,
-        backgroundColor:'#C8C8C8',
-        borderColor : '#C8C8C8',
-    },
-    borderShadow : {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,  
-        elevation: 5
-    },
-    titleSignIn:{
-        fontWeight:'bold',
+        borderColor: "#00C74F"
     },
     titleSignUp : {
         fontWeight : 'bold',
-        color : 'black'
+        color: 'white'
     }
 })
 

@@ -1,15 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import userIcon from '../assets/userIcon.png';
 
 export default function PerfilProfissionalIcon({ size, color }) {
   return (
     <View style={styles.container} >
-      <img src="https://media.discordapp.net/attachments/840004581992038400/859550816557858857/unknown.png" height={"100%"} width={"100%"} />
+      <Image 
+        style={styles.image}
+        source={userIcon}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  image: {
+    width: 35,
+    height: 35
+  },
   container: {
     width: 45,
     height: 45,
